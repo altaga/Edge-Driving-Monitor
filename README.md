@@ -62,7 +62,7 @@ Software:
 
 Project:
 
-- EdgeDriverMonitor. [Link](pending)
+- EdgeDriverMonitor. [Link](https://studio.edgeimpulse.com/public/46428/latest)
 
 # Connection Diagram:
 
@@ -78,7 +78,7 @@ Para poder utilizar Machine Learning en un microcontrolador hay que decidir el f
 
 Lo primero que debemos hacer es plantear que es lo que queremos detectar con nuestro modelo, en este caso serian carros, personas y motocicletas. Por lo tanto la primera etapa es obtener el dataset para alimentar al modelo.
 
-El proyecto es publico, asi que puedes analizar el dataset y utilizarlo como gustes. [LINK](https://studio.edgeimpulse.com/studio/46428/versions)
+El proyecto es publico, asi que puedes analizar el dataset y utilizarlo como gustes. [LINK](https://studio.edgeimpulse.com/public/46428/latest)
 
 <img src="./Images/dataset.png">
 
@@ -109,7 +109,6 @@ No olvides presionar el boton de Start Training.
 
 Recordar que tener una red que obtenga valores muy cercanos a 100% en entrenamiento puede ser una señalde overfitting de datos, asi que siempre evitar que ocurra esto, sin embargo para eso deberemos realizar el tesing del modelo en la pestaña de Model testing.
 
-INSERTAR IMAGEN DE MODEL TESTING y resultados.
 <img src="./Images/testing1.png">
 
 Ya por ultimo ya que vimos que el modelo funciona, no cae en overfitting ni underfitting, deberemos elegir el device donde vamos a desplegar el modelo para su utilizacion, ya que yo ocupo el modelo para ESP32 y usare el Arduino IDE, seleccionare de la lista esa libreria.
@@ -119,9 +118,10 @@ Ya por ultimo ya que vimos que el modelo funciona, no cae en overfitting ni unde
 En la seccion de abajo podremos hacer el build y descargar el modelo, Edge Impuse recomienda dejar enable el EON Compiler, asi que justo asi lo dejaremos, sobre todo no olvides utilizar la opcion de Modelo Quantized para mejor rendimiento.
 
 <img src="./Images/deploy2.png">
-IMAGEN DE LA OPTIMIZACION
 
 Ahora seguiremos las instrucciones para agregar el proyecto a Arduino IDE, puedes usar la version directamente desde Edge Impuse o utilizar la version [ei-edgedrivermonitor-arduino-1.0.3.zip](https://github.com/altaga/Edge-Driving-Monitor/blob/main/ei-edgedrivermonitor-arduino-1.0.3.zip) que yo utilice en mi proyecto.
+
+<img src="./Images/deploy3.png">
 
 # Arduino Setup and Sketch Compilation:
 
@@ -156,11 +156,13 @@ Sorry github does not allow embed videos.
 
 Con este analisis podermos extrapolar el consumo energetico que seria de 50mAh, los datos del analisis estaran en el archivo [ppk-20210904T064657.csv](https://github.com/altaga/Edge-Driving-Monitor/blob/main/Data/ppk-20210904T064657.csv) para que puedas analizar el consumo mas a detalle.
 
+<img src="./Images/ppk2.png">
+
 # M5 Display.
 
 Como parte de la solucion se decidio que para mostrar los resultados de el device era necesario una pantalla o algun dispositivo con display, no es necesario utilizar una pantalla si no lo requieres, podria ser solo un LED y asi mantener aun mas bajo el consumo energetico, pero por fines demostrativos se utilizo el M5core2 y se utilizo la comunicacion serial para mandar los resultados desde el ESP32 al M5core2.
 
-ESP32 Cam:
+ESP32 Cam: Get Image, Analyze and Sleep.
 
     fb = esp_camera_fb_get();
     if (!fb) {
@@ -170,8 +172,11 @@ ESP32 Cam:
       Serial.println(classify());
       Serial.flush();
     }
+    esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR); // 2 seconds
+    esp_deep_sleep_start();
 
-M5Core2:
+
+M5Core2: Display result.
 
     String serial = Serial2.readString();
     if (serial.indexOf("Start") != -1) {  // Filter Noise from ESP32 Cam Module Sleep
