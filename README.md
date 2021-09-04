@@ -137,7 +137,7 @@ Ya seleccionada la placa ahora si seleccionar el puerto serial de la placa y fla
 
 <img src="./Images/arduino3.jpg">
 
-Si todo sale bien deberemos ver el siguiente resultado en el IDE.
+Si el compiladoo sale bien deberemos ver el siguiente resultado en el IDE.
 
 <img src="./Images/arduino4.png">
 
@@ -150,7 +150,9 @@ En el codigo se procuro cuidar el consumo de energia del ESP32 lo mas posible, a
 
 Aqui un analisis de la energia consumida por el device en 10 min, acelerare el video 10 veces para que puedas ver en 1 min todo el analisis, este analisis se realizo con el Power Profiler Kit II de Nordic.
 
+Video: Click on the image
 [![PPK](./Images/ppk1.jpg)](https://youtu.be/to5gXl_dCmc)
+Sorry github does not allow embed videos.
 
 Con este analisis podermos extrapolar el consumo energetico que seria de 50mAh, los datos del analisis estaran en el archivo NAME dentro de la carpeta Data para que puedas analizar el consumo mas a detalle.
 
