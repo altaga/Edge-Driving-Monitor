@@ -12,6 +12,10 @@
 - [Connection Diagram:](#connection-diagram)
 - [Edge Impulse:](#edge-impulse)
 - [Arduino Setup and Sketch Compilation:](#arduino-setup-and-sketch-compilation)
+  - [Project Highlights:](#project-highlights)
+- [M5 Display.](#m5-display)
+- [Prototype Images:](#prototype-images)
+- [EPIC DEMO:](#epic-demo)
 
 # Introduction:
 
@@ -131,10 +135,46 @@ Una vez agregada la libreria, seleccionaremos la board correcta para la cual vam
 
 Ya seleccionada la placa ahora si seleccionar el puerto serial de la placa y flashear el codigo.
 
-<img src="./Images/arduino3.png">
+<img src="./Images/arduino3.jpg">
 
 Si todo sale bien deberemos ver el siguiente resultado en el IDE.
 
 <img src="./Images/arduino4.png">
 
+## Project Highlights:
 
+En el codigo se procuro cuidar el consumo de energia del ESP32 lo mas posible, asi que las consideraciones para mantener el consumo al minimo fueron:
+
+1. Utilizar una red de inferencia como la que nos despliega Edge Impulse.
+2. Mandar el microcontrolador a Deep sleep mientras no este relizando la inferencia en la red neuronal, el deep sleep se genera mediante timer y puedes bajarlo o subirlo segun tus necesidades, en mi caso el device se duerme por 2 segundos entre lecturas.
+
+Aqui un analisis de la energia consumida por el device en 10 min, acelerare el video 10 veces para que puedas ver en 1 min todo el analisis, este analisis se realizo con el Power Profiler Kit II de Nordic.
+
+[![PPK](./Images/ppk1.jpg)](https://youtu.be/to5gXl_dCmc)
+
+Con este analisis podermos extrapolar el consumo energetico que seria de 50mAh, los datos del analisis estaran en el archivo NAME dentro de la carpeta Data para que puedas analizar el consumo mas a detalle.
+
+# M5 Display.
+
+Como parte de la solucion se decidio que para mostrar los resultados de el device era necesario una pantalla o algun dispositivo con display, no es necesario utilizar una pantalla si no lo requieres, podria ser solo un LED y asi mantener aun mas bajo el consumo energetico, pero por fines demostrativos se utilizo el M5core2.
+
+<img src="./Images/m5esp.jpg">
+
+Realice algunas pruebas estaticas del device para poder asegurarme que la red funcionaba correctamente.
+
+Car:
+<img src="./Images/test1.jpg">
+
+Pedestrian:
+<img src="./Images/test2.jpg">
+
+Motorcycle:
+<img src="./Images/test3.jpg">
+
+# Prototype Images:
+
+FOTOS EN EL CARRO
+
+# EPIC DEMO:
+
+[![DEMO](./Images/logo.png)](pending...)
