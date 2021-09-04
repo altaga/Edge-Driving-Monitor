@@ -158,7 +158,31 @@ Con este analisis podermos extrapolar el consumo energetico que seria de 50mAh, 
 
 # M5 Display.
 
-Como parte de la solucion se decidio que para mostrar los resultados de el device era necesario una pantalla o algun dispositivo con display, no es necesario utilizar una pantalla si no lo requieres, podria ser solo un LED y asi mantener aun mas bajo el consumo energetico, pero por fines demostrativos se utilizo el M5core2.
+Como parte de la solucion se decidio que para mostrar los resultados de el device era necesario una pantalla o algun dispositivo con display, no es necesario utilizar una pantalla si no lo requieres, podria ser solo un LED y asi mantener aun mas bajo el consumo energetico, pero por fines demostrativos se utilizo el M5core2 y se utilizo la comunicacion serial para mandar los resultados desde el ESP32 al M5core2.
+
+ESP32 Cam:
+
+    fb = esp_camera_fb_get();
+    if (!fb) {
+      esp_deep_sleep_start();
+    }
+    else {
+      Serial.println(classify());
+      Serial.flush();
+    }
+
+M5Core2:
+
+    String serial = Serial2.readString();
+    if (serial.indexOf("Start") != -1) {  // Filter Noise from ESP32 Cam Module Sleep
+      flag = true;
+    } 
+    else if (flag) { // Convert Serial to Float Array
+      serial = serial.substring(serial.indexOf("Star") + 4, serial.indexOf("Stop"));
+      float array[3] = { serial.substring(0, serial.indexOf(",")).toFloat(), serial.substring(serial.indexOf(",") + 1, serial.indexOf(",", serial.indexOf(",") + 1)).toFloat(), serial.substring(serial.indexOf(",", serial.indexOf(",") + 1) + 1).toFloat() 
+      };
+
+La cominucacion como se indico se realizo por serial desde el ESP32 (GPIO3 RX and GPIO1 TX) a el PORTC (Serial2) del M5core2
 
 <img src="./Images/m5esp.jpg">
 
