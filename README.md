@@ -11,6 +11,7 @@
 - [Materials:](#materials)
 - [Connection Diagram:](#connection-diagram)
 - [Edge Impulse:](#edge-impulse)
+- [Arduino Setup and Sketch Compilation:](#arduino-setup-and-sketch-compilation)
 
 # Introduction:
 
@@ -116,10 +117,24 @@ En la seccion de abajo podremos hacer el build y descargar el modelo, Edge Impus
 <img src="./Images/deploy2.png">
 IMAGEN DE LA OPTIMIZACION
 
-Ahora seguiremos las instrucciones para agregar el proyecto a Arduino IDE, puedes usar la version directamente desde Edge Impuse o utilizar la version [ei-edgedrivermonitor-arduino-1.0.3.zip]() que yo utilice en mi proyecto.
+Ahora seguiremos las instrucciones para agregar el proyecto a Arduino IDE, puedes usar la version directamente desde Edge Impuse o utilizar la version [ei-edgedrivermonitor-arduino-1.0.3.zip](https://github.com/altaga/Edge-Driving-Monitor/blob/main/ei-edgedrivermonitor-arduino-1.0.3.zip) que yo utilice en mi proyecto.
 
+# Arduino Setup and Sketch Compilation:
 
+Una vez tenemos la libreria descargada, abriremos el ejemplo en la carpeta [Edge_Impulse_ESP32_Cam](https://github.com/altaga/Edge-Driving-Monitor/tree/main/Edge_Impulse_ESP32_Cam), una vez abierto agregaremos la libreria .zip como se muestra en la imagen.
 
+<img src="./Images/arduino1.png">
 
+Una vez agregada la libreria, seleccionaremos la board correcta para la cual vamos a compilar, en este casi el ESP32 CAM.
+
+<img src="./Images/arduino2.png">
+
+Ya seleccionada la placa ahora si seleccionar el puerto serial de la placa y flashear el codigo.
+
+<img src="./Images/arduino3.png">
+
+Si todo sale bien deberemos ver el siguiente resultado en el IDE.
+
+<img src="./Images/arduino4.png">
 
 

@@ -16,9 +16,6 @@
 #define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP 2 /* Time ESP32 will go to sleep (in seconds) */
 
-const char* ssid = "HomeInt";
-const char* password = "AltamiraPassword01281216";
-
 camera_fb_t * fb = NULL;
 uint8_t * _jpg_buf = NULL;
 camera_config_t config;
