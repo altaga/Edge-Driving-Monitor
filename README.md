@@ -62,7 +62,7 @@ Software:
 
 Project:
 
-EdgeDriverMonitor. [Link](pending)
+- EdgeDriverMonitor. [Link](pending)
 
 # Connection Diagram:
 
