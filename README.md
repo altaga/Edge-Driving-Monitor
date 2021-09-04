@@ -12,7 +12,7 @@
 - [Connection Diagram:](#connection-diagram)
 - [Edge Impulse:](#edge-impulse)
 - [Arduino Setup and Sketch Compilation:](#arduino-setup-and-sketch-compilation)
-  - [Project Highlights:](#project-highlights)
+- [Energy Consumption:](#energy-consumption)
 - [M5 Display.](#m5-display)
 - [Prototype Images:](#prototype-images)
 - [EPIC DEMO:](#epic-demo)
@@ -141,7 +141,7 @@ Si el compiladoo sale bien deberemos ver el siguiente resultado en el IDE.
 
 <img src="./Images/arduino4.png">
 
-## Project Highlights:
+# Energy Consumption:
 
 En el codigo se procuro cuidar el consumo de energia del ESP32 lo mas posible, asi que las consideraciones para mantener el consumo al minimo fueron:
 
