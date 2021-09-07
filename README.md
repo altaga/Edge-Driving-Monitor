@@ -204,7 +204,9 @@ Motorcycle:
 
 # Prototype Images:
 
-FOTOS EN EL CARRO
+<img src="./Images/product1.jpg" width="230px">
+<img src="./Images/product2.jpg" width="230px">
+<img src="./Images/product3.jpg" width="230px">
 
 # EPIC DEMO:
 
