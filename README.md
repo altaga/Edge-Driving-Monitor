@@ -204,9 +204,9 @@ Motorcycle:
 
 # Prototype Images:
 
-<img src="./Images/product1.jpg" width="230px">
-<img src="./Images/product2.jpg" width="230px">
-<img src="./Images/product3.jpg" width="230px">
+<img src="./Images/product1.jpg">
+<img src="./Images/product2.jpg">
+<img src="./Images/product3.jpg">
 
 # EPIC DEMO:
 
