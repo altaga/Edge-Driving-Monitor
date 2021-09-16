@@ -19,13 +19,13 @@
 
 # Introduction:
 
-As a driver, it’s super important for you to know where the blind spots are on your own vehicle as well as other drivers' vehicles. Knowing this will help protect you and those around you from an easily-avoidable accident (no one wants to get sideswiped, really). 
+As a driver, it’s quite important for you to know where the blind spots are on your own vehicle as well as other drivers' vehicles. Knowing this will help protect you and those around you from an easily-avoidable accident (no one wants to get sideswiped, really). 
 
 <img src="./Images/blind.png">
 
 Blind spots are the areas to the sides of your car that can’t be seen in your rear mirror or side mirrors.
 
-Apesar de ser muy notorio en camiones (1) los autos tambien tienen este tipo de puntos ciegos, los cuales pueden generar hasta 800,000 accidentes al año (2).
+Despite being very noticeable in trucks (1), cars also have this type of blind spots, which can generate up to 800,000 accidents per year (2).
 
 1. https://www.fmcsa.dot.gov/ourroads/large-blind-spots
 2. https://www.natlawreview.com/article/what-if-my-car-accident-was-caused-blind-spot
@@ -72,95 +72,96 @@ This is the connection diagram of the system:
 
 # Edge Impulse:
 
-Para poder utilizar Machine Learning en un microcontrolador hay que decidir el framework a utilizar, en este caso se aprovecho el servicio ofrecido por [Edge Impulse](https://www.edgeimpulse.com/) para acelerar el desarrollo de la solucion.
+To be able to use Machine Learning in a microcontroller, you have to decide the framework to use, in this case the service offered by [Edge Impulse] (https://www.edgeimpulse.com/) was used to accelerate the development of the solution.
 
 <img src="./Images/edge.png">
 
-Lo primero que debemos hacer es plantear que es lo que queremos detectar con nuestro modelo, en este caso serian carros, personas y motocicletas. Por lo tanto la primera etapa es obtener el dataset para alimentar al modelo.
+The first thing we must do is put forward what we want to detect with our model, in this case it would be cars, people and motorcycles. Therefore the first stage is to obtain the dataset to feed the model.
 
-El proyecto es publico, asi que puedes analizar el dataset y utilizarlo como gustes. [LINK](https://studio.edgeimpulse.com/public/46428/latest)
+The project is public, so you can analyze the dataset and use it as you like. [LINK](https://studio.edgeimpulse.com/public/46428/latest)
 
 <img src="./Images/dataset.png">
 
-Para mi Impulse, subi 1224 imagenes en total, siendo 958 para train y 266 para test, con las labels Cars, Motorcycle and Pedestrians.
+For my Impulse, I uploaded 1224 images in total, being 958 for train and 266 for test, with the labels Cars, Motorcycle and Pedestrians.
 
 <img src="./Images/labels.png">
 
-Lo siguiente sera configurar el Impuse que se va a crear, esto con el fin de poderlo leer desde la camara del ESP32 y poder mandarlo a la red neuronal.
+The next thing will be to configure the Impuse that is going to be created, this in order to be able to read it from the ESP32 camera and be able to send it to the neural network.
 
 <img src="./Images/impulse.png">
 
-NOTA: NO CAMBIES ESTOS AJUSTES SI VAS A REPLICAR ESTE PROYECTO EN UN ESP32 CAM.
+NOTE: DO NOT CHANGE THESE SETTINGS IF YOU ARE GOING TO REPLICATE THIS PROJECT ON AN ESP32 CAM.
 
-Ahora debemos pasar a la pestaña de Image y generar los features del modelo.
+Now we must go to the Image tab and generate the features of the model.
 
 Parameters:
 <img src="./Images/image1.png">
 Features:
 <img src="./Images/image2.png">
 
-Ahora debemos configurar la red neuronal que va a ser entrenada con nuestros datos, en este caso Edge Impulse utiliza la tecnica de transfer learning para facilitar el entrenamiento de las redes, entonces para este ejemplo es conveniente utilizar una MobileNetV2 0.05
+Now we must configure the neural network that is going to be trained with our data, in this case Edge Impulse uses the transfer learning technique to facilitate the training of the networks, so for this example it is convenient to use a MobileNetV2 0.05
 
 <img src="./Images/transfer.png">
 
-No olvides presionar el boton de Start Training.
+Don't forget to press the Start Training button.
 
 <img src="./Images/result.png">
 
-Recordar que tener una red que obtenga valores muy cercanos a 100% en entrenamiento puede ser una señalde overfitting de datos, asi que siempre evitar que ocurra esto, sin embargo para eso deberemos realizar el tesing del modelo en la pestaña de Model testing.
+Remember that having a network that obtains values very close to 100% in training can be a sign of data overfitting, so always avoid this from happening, however for that we will have to test the model in the Model testing tab.
 
 <img src="./Images/testing1.png">
 
-Ya por ultimo ya que vimos que el modelo funciona, no cae en overfitting ni underfitting, deberemos elegir el device donde vamos a desplegar el modelo para su utilizacion, ya que yo ocupo el modelo para ESP32 y usare el Arduino IDE, seleccionare de la lista esa libreria.
+Finally, since we saw that the model works, it does not fall into overfitting or underfitting, we must choose the device where we are going to display the model for its use, since I use the model for ESP32 and I will use the Arduino IDE, I will select from the list that library.
 
 <img src="./Images/deploy1.png">
 
-En la seccion de abajo podremos hacer el build y descargar el modelo, Edge Impuse recomienda dejar enable el EON Compiler, asi que justo asi lo dejaremos, sobre todo no olvides utilizar la opcion de Modelo Quantized para mejor rendimiento.
+In the section below we will be able to build and download the model, Edge Impuse recommends leaving the EON Compiler enabled, so we will just leave it like that, especially do not forget to use the Quantized Model option for better performance.
 
 <img src="./Images/deploy2.png">
 
-Ahora seguiremos las instrucciones para agregar el proyecto a Arduino IDE, puedes usar la version directamente desde Edge Impuse o utilizar la version [ei-edgedrivermonitor-arduino-1.0.3.zip](https://github.com/altaga/Edge-Driving-Monitor/blob/main/ei-edgedrivermonitor-arduino-1.0.3.zip) que yo utilice en mi proyecto.
+Now we will follow the instructions to add the project to Arduino IDE, you can use the version directly from Edge Impuse or use the version [ei-edgedrivermonitor-arduino-1.0.3.zip] (https://github.com/altaga/Edge-Driving-Monitor/blob/main/Once we have the library downloaded, we will open the example in the [Edge_Impulse_ESP32_Cam] folder (https://github.com/altaga/Edge-Driving-Monitor/tree/main/Edge_Impulse_ESP32_Cam), once open we will add the .zip library as shown shown in the picture.
+ei-edgedrivermonitor-arduino-1.0.3.zip) that I use in my project.
 
 <img src="./Images/deploy3.png">
 
 # Arduino Setup and Sketch Compilation:
 
-Una vez tenemos la libreria descargada, abriremos el ejemplo en la carpeta [Edge_Impulse_ESP32_Cam](https://github.com/altaga/Edge-Driving-Monitor/tree/main/Edge_Impulse_ESP32_Cam), una vez abierto agregaremos la libreria .zip como se muestra en la imagen.
+Once we have the library downloaded, we will open the example in the [Edge_Impulse_ESP32_Cam] folder (https://github.com/altaga/Edge-Driving-Monitor/tree/main/Edge_Impulse_ESP32_Cam), once open we will add the .zip library as shown shown in the picture.
 
 <img src="./Images/arduino1.png">
 
-Una vez agregada la libreria, seleccionaremos la board correcta para la cual vamos a compilar, en este casi el ESP32 CAM.
+Once the library is added, we will select the correct board for which we are going to compile, in this almost the ESP32 CAM.
 
 <img src="./Images/arduino2.png">
 
-Ya seleccionada la placa ahora si seleccionar el puerto serial de la placa y flashear el codigo.
+Already selected the board now if you select the serial port of the board and flash the code.
 
 <img src="./Images/arduino3.jpg">
 
-Si el compiladoo sale bien deberemos ver el siguiente resultado en el IDE.
+If the compilation succeeds we should see the following result in the IDE.
 
 <img src="./Images/arduino4.png">
 
 # Energy Consumption:
 
-En el codigo se procuro cuidar el consumo de energia del ESP32 lo mas posible, asi que las consideraciones para mantener el consumo al minimo fueron:
+The code tried to take care of the ESP32's power consumption as much as possible, so the considerations to keep the consumption to a minimum were:
 
-1. Utilizar una red de inferencia como la que nos despliega Edge Impulse.
-2. Mandar el microcontrolador a Deep sleep mientras no este relizando la inferencia en la red neuronal, el deep sleep se genera mediante timer y puedes bajarlo o subirlo segun tus necesidades, en mi caso el device se duerme por 2 segundos entre lecturas.
+1. Use an inference network like the one Edge Impulse displays.
+2. Send the microcontroller to Deep sleep while it is not making the inference in the neural network, the deep sleep is generated by a timer and you can lower or raise it according to your needs, in my case the device falls asleep for 2 seconds between readings.
 
-Aqui un analisis de la energia consumida por el device en 10 min, acelerare el video 10 veces para que puedas ver en 1 min todo el analisis, este analisis se realizo con el Power Profiler Kit II de Nordic.
+Here is an analysis of the energy consumed by the device in 10 min, I will speed up the video 10 times so that you can see the entire analysis in 1 min, this analysis was performed with the Nordic Power Profiler Kit II.
 
 Video: Click on the image
 [![PPK](./Images/ppk1.jpg)](https://youtu.be/to5gXl_dCmc)
 Sorry github does not allow embed videos.
 
-Con este analisis podermos extrapolar el consumo energetico que seria de 50mAh, los datos del analisis estaran en el archivo [ppk-20210904T064657.csv](https://github.com/altaga/Edge-Driving-Monitor/blob/main/Data/ppk-20210904T064657.csv) para que puedas analizar el consumo mas a detalle.
+With this analysis we can extrapolate the energy consumption that would be 50mAh, the analysis data will be in the file: [ppk-20210904T064657.csv](https://github.com/altaga/Edge-Driving-Monitor/blob/main/Data/ppk-20210904T064657.csv) para que puedas analizar el consumo mas a detalle.
 
 <img src="./Images/ppk2.png">
 
 # M5 Display.
 
-Como parte de la solucion se decidio que para mostrar los resultados de el device era necesario una pantalla o algun dispositivo con display, no es necesario utilizar una pantalla si no lo requieres, podria ser solo un LED y asi mantener aun mas bajo el consumo energetico, pero por fines demostrativos se utilizo el M5core2 y se utilizo la comunicacion serial para mandar los resultados desde el ESP32 al M5core2.
+As part of the solution it was decided that to show the results of the device a screen or some device with a display was necessary, it is not necessary to use a screen if you do not require it, it could be only an LED and thus keep energy consumption even lower , but for demonstration purposes the M5core2 was used and the serial communication was used to send the results from the ESP32 to the M5core2.
 
 ESP32 Cam: Get Image, Analyze and Sleep.
 
@@ -187,11 +188,11 @@ M5Core2: Display result.
       float array[3] = { serial.substring(0, serial.indexOf(",")).toFloat(), serial.substring(serial.indexOf(",") + 1, serial.indexOf(",", serial.indexOf(",") + 1)).toFloat(), serial.substring(serial.indexOf(",", serial.indexOf(",") + 1) + 1).toFloat() 
       };
 
-La cominucacion como se indico se realizo por serial desde el ESP32 (GPIO3 RX and GPIO1 TX) a el PORTC (Serial2) del M5core2
+Communication as indicated was done by serial from ESP32 (GPIO3 RX and GPIO1 TX) to PORTC (Serial2) of M5core2
 
 <img src="./Images/m5esp.jpg">
 
-Realice algunas pruebas estaticas del device para poder asegurarme que la red funcionaba correctamente.
+I did some static tests on the device to make sure the network was working properly.
 
 Car:
 <img src="./Images/test1.jpg">
